@@ -26,8 +26,8 @@ public class DriveTrain extends RobotDrive{
 	
 	public void drive(Joystick leftStick, Joystick rightStick){
 		super.tankDrive(leftStick, rightStick);
-		rearRightMotor.set(rearLeftMotor.get());
-		frontRightMotor.set(frontLeftMotor.get());
+		rearRightMotor.set(frontRightMotor.get());
+		rearLeftMotor.set(frontLeftMotor.get());
 		
 	}
 	

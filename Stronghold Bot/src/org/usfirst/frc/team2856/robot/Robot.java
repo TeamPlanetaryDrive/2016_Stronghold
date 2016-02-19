@@ -24,10 +24,14 @@ public class Robot extends IterativeRobot {
     
     private Joystick left, right;
     private Victor[] wheels;/*0,1   left       2,3   right*/
-    private Jaguar roller, arm;
+    private Victor roller;
+    private Victor arm, winch;
     private DriveTrain dt;
     
-	
+    Teleop teleop;//teleop loop
+    
+    
+    
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -38,17 +42,8 @@ public class Robot extends IterativeRobot {
         chooser.addObject("My Auto", customAuto);
         SmartDashboard.putData("Auto choices", chooser);
         
-        for(int i = 0; i  < 4; i++){
-        	wheels[i] = new Victor(i);
-        }
+        init();
         
-        left  = new Joystick(0);
-        right = new Joystick(1);
-        
-        roller = new Jaguar(4);
-        arm = new Jaguar(5);
-        
-        dt = new DriveTrain(wheels);
         
     }
     
@@ -86,14 +81,7 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-        dt.drive(left, right);//tankdrive
-        
-        if(left.getBumper() || right.getBumper()){
-        	arm.setInverted(true);
-        }
-        
-        arm.set((left.getZ() + right.getZ())/2);
-        
+       teleop.teleopLoop();
         
     }
     
@@ -104,4 +92,21 @@ public class Robot extends IterativeRobot {
     
     }
     
+    public void init(){
+    	//initialize variable
+        for(int i = 0; i  < 4; i++){
+        	wheels[i] = new Victor(i);
+        }
+        
+        left  = new Joystick(0);
+        right = new Joystick(1);
+        
+        roller = new Victor(4);
+        //arm = new Jaguar(5);
+        
+        dt = new DriveTrain(wheels);
+        
+    	
+        teleop = new Teleop(dt, left, right, roller);
+    }
 }
