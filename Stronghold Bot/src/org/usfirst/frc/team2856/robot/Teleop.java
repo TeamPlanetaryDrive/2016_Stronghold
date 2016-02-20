@@ -4,33 +4,35 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Victor;
 
 public class Teleop {
-	
+
 	//Variables
 	DriveTrain dt;
 	Joystick left, right;
 	Victor roller;
-	
+
 	public Teleop(DriveTrain dt, Joystick left, Joystick right, Victor roller){
 		//add vars
 		this.dt = dt;
 		this.left = left;
 		this.right = right;
 		this.roller = roller;
-		
-		
-		
 	}
-	
+
 	public void teleopLoop(){
-		 dt.drive(left, right);//tankdrive
-	        
-	        if(left.getBumper()){
-	        	roller.set(1);
-	        }else if(right.getBumper()){
-	        	roller.set(-1);
-	        }else{
-	        	roller.set(0);
-	        }
+		//TANKDRIVE 
+		//note: they might actually want arcadeDrive
+		dt.drive(left, right);
+
+		//INTAKE
+		if(left.getBumper()){//left bumper has priority
+			roller.set(1);
+		}else if(right.getBumper()){//right bumper 
+			roller.set(-1);
+		}else{//no bumper
+			roller.set(0);
+		}
+		
+		
 	}
-	
+
 }

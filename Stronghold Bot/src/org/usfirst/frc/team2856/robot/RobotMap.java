@@ -5,11 +5,15 @@ import java.util.Map;
 public class RobotMap {
 	Map<String, Integer> robotMap;
 	
-	//Variables
-	public final int frontLeftMotorChannel  = 0;
-	public final int rearLeftMotorChannel  = 1;
-	public final int frontRightMotorChannel  = 2;
-	public final int rearRightMotorChannel  = 3;
+	//Channels
+	public static final int fLMotorChannel  = 0;
+	public static final int rLMotorChannel  = 2;
+	public static final int fRMotorChannel  = 1;
+	public static final int rRMotorChannel  = 3;
+	public static final int rollerChannel = 4;
+	public static final int armChannel = 5;
+	public static final int winchChannel = 6;
+	
 	
 	public RobotMap(String[] keys, Integer[] values){
 		

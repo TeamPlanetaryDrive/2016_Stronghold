@@ -22,7 +22,7 @@ public class Robot extends IterativeRobot {
     SendableChooser chooser;
     
     
-    private Joystick left, right;
+    private Joystick left, right;//xbox
     private Victor[] wheels;/*0,1   left       2,3   right*/
     private Victor roller;
     private Victor arm, winch;
@@ -92,21 +92,34 @@ public class Robot extends IterativeRobot {
     
     }
     
+    /**
+     * This helper function initializes variables such as the motors, DriveTrain
+     * and the teleop loop
+     */
     public void init(){
-    	//initialize variable
-        for(int i = 0; i  < 4; i++){
-        	wheels[i] = new Victor(i);
-        }
+    	/*SpeedControllers*/
+    	//wheels
+    	//left
+    	wheels[0] = new Victor(RobotMap.fLMotorChannel);
+    	wheels[1] = new Victor(RobotMap.rLMotorChannel);
+        //right
+    	wheels[2] = new Victor(RobotMap.fRMotorChannel);
+    	wheels[3] = new Victor(RobotMap.rRMotorChannel);		
+    	
+        roller = new Victor(RobotMap.rollerChannel);
+        arm = new Victor(RobotMap.armChannel);
+        winch =  new Victor(RobotMap.winchChannel);
         
+        
+        /*Joysticks*/
         left  = new Joystick(0);
         right = new Joystick(1);
         
-        roller = new Victor(4);
-        //arm = new Jaguar(5);
-        
+        //DriveTrain takes in the wheels
         dt = new DriveTrain(wheels);
-        
     	
+        //teleop loop 
+        //note: will later add in the arm and winch
         teleop = new Teleop(dt, left, right, roller);
     }
 }
