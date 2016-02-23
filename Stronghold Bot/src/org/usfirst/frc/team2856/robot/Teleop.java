@@ -21,7 +21,7 @@ public class Teleop {
 	public void teleopLoop(){
 		//TANKDRIVE 
 		//note: they might actually want arcadeDrive
-		dt.drive(left, right);
+		dt.drive(left);
 
 		//INTAKE
 		if(left.getBumper()){//left bumper has priority
@@ -31,6 +31,81 @@ public class Teleop {
 		}else{//no bumper
 			roller.set(0);
 		}
+	}
+	
+	public void autoLoop(String mode){
+		
+		//"+ up down - left right"   up 1 down 1 left 1 right 1;
+		String[] dir = mode.split(" ");
+		String direction;
+		double time, value;
+		
+		
+		for(int i = 0; i < dir.length; i+=2){
+			direction = dir[i];
+			direction = direction.toLowerCase();
+			value = Double.parseDouble(dir[i+1]);
+			
+			if(direction == "+"){
+				
+				long startTime = System.currentTimeMillis()/1000;
+				long currTime = System.currentTimeMillis()/1000;
+				long end = (long) Math.abs(value);
+				
+				while(currTime - startTime < Math.abs(value)){
+					if(value<1)
+						dt.arcadeDrive(-0.8, 0);
+					else
+						dt.arcadeDrive(0.8,0);
+					
+					currTime = System.currentTimeMillis()/1000;
+				}
+			}else if(direction == "-"){
+				long startTime = System.currentTimeMillis()/1000;
+				long currTime = System.currentTimeMillis()/1000;
+				long end = (long) Math.abs(value);
+				
+				while(currTime - startTime < Math.abs(value)){
+					if(value<1)
+						dt.arcadeDrive(0, -0.8);
+					else
+						dt.arcadeDrive(0, 0.8);
+					
+					currTime = System.currentTimeMillis()/1000;
+				}
+			}
+			
+		}
+		
+		/*drive
+		switch(mode){
+			case "Mode1":
+				long startTime = System.currentTimeMillis()/1000;
+				long currTime = System.currentTimeMillis()/1000;
+				
+				while(currTime - startTime < 10){
+					dt.arcadeDrive(-0.8, 0);
+					currTime = System.currentTimeMillis()/1000;
+				}
+				
+				break;
+			case "Mode2":
+				
+				
+				break;
+			default:
+				
+				
+				break;
+				
+		}*/
+		
+		
+		
+		
+		
+		
+		
 		
 		
 	}
