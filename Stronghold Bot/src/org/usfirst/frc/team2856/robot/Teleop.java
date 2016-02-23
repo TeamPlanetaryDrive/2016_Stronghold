@@ -10,7 +10,7 @@ public class Teleop {
 	Joystick left, right;
 	Victor roller;
 
-	public Teleop(DriveTrain dt, Joystick left, Joystick right, Victor roller){
+	public Teleop(DriveTrain dt, Joystick left, Joystick right, Victor roller){//Arm arm
 		//add vars
 		this.dt = dt;
 		this.left = left;
