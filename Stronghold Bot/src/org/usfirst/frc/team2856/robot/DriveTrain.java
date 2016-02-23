@@ -31,9 +31,16 @@ public class DriveTrain extends RobotDrive {
 		
 		rearRightMotor.set(frontRightMotor.get());
 		rearLeftMotor.set(frontLeftMotor.get());
-
 	}
-
+	
+	public void tankDrive(double xValue, double yValue){
+		super.tankDrive(xValue, yValue);;
+		//super.arcadeDrive(leftStick);
+		
+		rearRightMotor.set(frontRightMotor.get());
+		rearLeftMotor.set(frontLeftMotor.get());
+	}
+	
 /*PID METHODS IF ENCODERS ARE USED*/
 //	public void initPID() {
 //		fl = new PIDController(Kp, Ki, Kd, someEncoder, frontLeftMotor, period);
